@@ -18,8 +18,8 @@ jobs:
       - name: npm install
         run: npm install
 
-      - name: Patch tracers into installed dist
-        run: node ci/patch-tracer.cjs
+      - name: Patch candidate fix into installed dist
+        run: node ci/patch-fix.cjs
 
       - name: Run vitest with unhandled-rejection tracing
         env:
