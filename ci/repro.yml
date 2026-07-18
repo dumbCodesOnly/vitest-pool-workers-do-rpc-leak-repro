@@ -18,6 +18,9 @@ jobs:
       - name: npm install
         run: npm install
 
+      - name: Dump source context around leak site (pre-patch)
+        run: sed -n '300,420p' node_modules/@cloudflare/vitest-pool-workers/dist/worker/lib/cloudflare/test-internal.mjs | cat -n
+
       - name: Patch candidate fix into installed dist
         run: node ci/patch-fix.cjs
 
