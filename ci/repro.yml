@@ -18,6 +18,13 @@ jobs:
       - name: npm install
         run: npm install
 
+      - name: Dump getRPCPropertyCallableThenable source from installed dist
+        run: |
+          echo "=== searching for getRPCPropertyCallableThenable ==="
+          grep -rn "getRPCPropertyCallableThenable" node_modules/@cloudflare/vitest-pool-workers/dist/ || true
+          echo "=== test-internal.mjs around line 362 (context 40 before/after) ==="
+          sed -n '320,400p' node_modules/@cloudflare/vitest-pool-workers/dist/worker/lib/cloudflare/test-internal.mjs || true
+
       - name: Run vitest with unhandled-rejection tracing
         env:
           NODE_OPTIONS: "--trace-warnings"
