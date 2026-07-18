@@ -1,0 +1,39 @@
+name: repro-do-rpc-leak
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  repro:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: npm install
+        run: npm install
+
+      - name: Run vitest with unhandled-rejection tracing
+        env:
+          NODE_OPTIONS: "--trace-warnings"
+          NODE_DEBUG: "vitest-pool-workers"
+        run: |
+          echo "=== vitest run ==="
+          npx vitest run 2>&1 | tee repro.log
+        continue-on-error: true
+
+      - name: Print full log
+        if: always()
+        run: cat repro.log
+
+      - name: Upload log as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repro-log
+          path: repro.log
