@@ -1,0 +1,15 @@
+{
+	"name": "vitest-pool-workers-do-rpc-leak-repro",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"test": "vitest run"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "0.15.2",
+		"@cloudflare/workers-types": "^4.20260421.0",
+		"typescript": "^5.7.2",
+		"vitest": "4.1.5",
+		"wrangler": "4.84.1"
+	}
+}
