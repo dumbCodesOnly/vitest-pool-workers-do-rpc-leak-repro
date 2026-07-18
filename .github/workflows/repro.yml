@@ -25,7 +25,8 @@ jobs:
         run: |
           echo "=== vitest run ==="
           npx vitest run 2>&1 | tee repro.log
-        continue-on-error: true
+          exit ${PIPESTATUS[0]}
+        shell: bash
 
       - name: Print full log
         if: always()
